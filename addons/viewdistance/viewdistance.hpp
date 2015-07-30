@@ -43,7 +43,6 @@ class HALV_veiwdialog
 			w = 0.412548 * safezoneW;
 			h = 0.418149 * safezoneH;
 		};
-
 		class HALV_viewdistance_text1frame: HALV_RscFrame
 		{
 			idc = -1;
@@ -118,16 +117,6 @@ class HALV_veiwdialog
 			w = 0.391921 * safezoneW;
 			h = 0.0330118 * safezoneH;
 		};
-		class HALV_viewdistance_text2: HALV_RscStructuredText
-		{
-			idc = 6669;
-			text = "0"; //--- ToDo: Localize;
-			x = 0.649549 * safezoneW + safezoneX;
-			y = 0.422973 * safezoneH + safezoneY;
-			w = 0.0464117 * safezoneW;
-			h = 0.0330118 * safezoneH;
-		};
-
 		class HALV_viewdistance_text3: HALV_RscStructuredText
 		{
 			idc = -1;
@@ -135,15 +124,6 @@ class HALV_veiwdialog
 			x = 0.304039 * safezoneW + safezoneX;
 			y = 0.466988 * safezoneH + safezoneY;
 			w = 0.391921 * safezoneW;
-			h = 0.0330118 * safezoneH;
-		};
-		class HALV_viewdistance_text4: HALV_RscStructuredText
-		{
-			idc = 6671;
-			text = "0"; //--- ToDo: Localize;
-			x = 0.649549 * safezoneW + safezoneX;
-			y = 0.511004 * safezoneH + safezoneY;
-			w = 0.0464117 * safezoneW;
 			h = 0.0330118 * safezoneH;
 		};
 		class HALV_viewdistance_text5: HALV_RscStructuredText
@@ -155,16 +135,6 @@ class HALV_veiwdialog
 			w = 0.391921 * safezoneW;
 			h = 0.0330118 * safezoneH;
 		};
-
-		class HALV_viewdistance_text6: HALV_RscStructuredText
-		{
-			idc = 6673;
-			text = "0"; //--- ToDo: Localize;
-			x = 0.649548 * safezoneW + safezoneX;
-			y = 0.599035 * safezoneH + safezoneY;
-			w = 0.0464117 * safezoneW;
-			h = 0.0330118 * safezoneH;
-		};
 		class HALV_viewdistance_text7: HALV_RscStructuredText
 		{
 			idc = -1;
@@ -172,15 +142,6 @@ class HALV_veiwdialog
 			x = 0.30404 * safezoneW + safezoneX;
 			y = 0.643051 * safezoneH + safezoneY;
 			w = 0.391921 * safezoneW;
-			h = 0.0330118 * safezoneH;
-		};
-		class HALV_viewdistance_text8: HALV_RscStructuredText
-		{
-			idc = 6675;
-			text = "35"; //--- ToDo: Localize;
-			x = 0.649548 * safezoneW + safezoneX;
-			y = 0.687067 * safezoneH + safezoneY;
-			w = 0.0464117 * safezoneW;
 			h = 0.0330118 * safezoneH;
 		};
 		class HALV_viewdistance_Default: HALV_RscButton
@@ -191,7 +152,7 @@ class HALV_veiwdialog
 			y = 0.731082 * safezoneH + safezoneY;
 			w = 0.134078 * safezoneW;
 			h = 0.0330118 * safezoneH;
-			action = "[]spawn{HALV_viewdistance_values = HALV_viewdistance_Defaults;closeDialog 0;sleep 0.2;createDialog 'HALV_veiwdialog'};";
+			action = "[]spawn{HALV_viewdistance_values = [1200,1000,200,35];closeDialog 0;false call HALV_setviewdistances;sleep 0.2;createDialog 'HALV_veiwdialog'};";
 		};
 		class HALV_viewdistance_Accept: HALV_RscButton
 		{
@@ -201,7 +162,7 @@ class HALV_veiwdialog
 			y = 0.731082 * safezoneH + safezoneY;
 			w = 0.123764 * safezoneW;
 			h = 0.0330118 * safezoneH;
-			action = "call HALV_setviewdistances;";
+			action = "true call HALV_setviewdistances;";
 		};
 		class HALV_viewdistance_Exit: HALV_RscButton
 		{
@@ -223,6 +184,15 @@ class HALV_veiwdialog
 			onSliderPosChanged = "_this call HALV_slideviewdistances;false";
 			tooltip = "Slide to set view distance"; //--- ToDo: Localize;
 		};
+		class HALV_viewdistance_text2: HALV_RscStructuredText
+		{
+			idc = 6669;
+			text = "0"; //--- ToDo: Localize;
+			x = 0.649549 * safezoneW + safezoneX;
+			y = 0.422973 * safezoneH + safezoneY;
+			w = 0.0464117 * safezoneW;
+			h = 0.0330118 * safezoneH;
+		};
 		class HALV_viewdistance_slider2: HALV_RscSlider
 		{
 			idc = 6670;
@@ -232,6 +202,15 @@ class HALV_veiwdialog
 			h = 0.0330118 * safezoneH;
 			tooltip = "Slide to set Object view distance"; //--- ToDo: Localize;
 			onSliderPosChanged = "_this call HALV_slideviewdistances;false";
+		};
+		class HALV_viewdistance_text4: HALV_RscStructuredText
+		{
+			idc = 6671;
+			text = "0"; //--- ToDo: Localize;
+			x = 0.649549 * safezoneW + safezoneX;
+			y = 0.511004 * safezoneH + safezoneY;
+			w = 0.0464117 * safezoneW;
+			h = 0.0330118 * safezoneH;
 		};
 		class HALV_viewdistance_slider3: HALV_RscSlider
 		{
@@ -243,6 +222,15 @@ class HALV_veiwdialog
 			tooltip = "Slide to set Object (shadow) view distance"; //--- ToDo: Localize;
 			onSliderPosChanged = "_this call HALV_slideviewdistances;false";
 		};
+		class HALV_viewdistance_text6: HALV_RscStructuredText
+		{
+			idc = 6673;
+			text = "0"; //--- ToDo: Localize;
+			x = 0.649548 * safezoneW + safezoneX;
+			y = 0.599035 * safezoneH + safezoneY;
+			w = 0.0464117 * safezoneW;
+			h = 0.0330118 * safezoneH;
+		};
 		class HALV_viewdistance_slider4: HALV_RscSlider
 		{
 			idc = 6674;
@@ -252,6 +240,15 @@ class HALV_veiwdialog
 			h = 0.0330118 * safezoneH;
 			tooltip = "Slide to set Terrain Grid"; //--- ToDo: Localize;
 			onSliderPosChanged = "_this call HALV_slideviewdistances;false";
+		};
+		class HALV_viewdistance_text8: HALV_RscStructuredText
+		{
+			idc = 6675;
+			text = "35"; //--- ToDo: Localize;
+			x = 0.649548 * safezoneW + safezoneX;
+			y = 0.687067 * safezoneH + safezoneY;
+			w = 0.0464117 * safezoneW;
+			h = 0.0330118 * safezoneH;
 		};
 	};
 };

@@ -19,9 +19,10 @@
 	Contact : halvhjearne@gmail.com
 */
 
+waitUntil{!isNull (findDisplay 46) && !dialog};
+
 _ObjVD = getObjectViewDistance;
-HALV_viewdistance_Defaults = [ViewDistance,_ObjVD select 0,_ObjVD select 1,35];
-HALV_viewdistance_values = HALV_viewdistance_Defaults;
+HALV_viewdistance_values = [ViewDistance,_ObjVD select 0,_ObjVD select 1,35];
 
 HALV_setsliderpos = compileFinal "
 	_display = _this select 0;
@@ -30,43 +31,42 @@ HALV_setsliderpos = compileFinal "
 	_ctrl sliderSetSpeed [1,3];
 	_ctrl sliderSetPosition (HALV_viewdistance_values select 0);
 	_ctrl = _display displayCtrl 6669;
-	_ctrl ctrlSetText format['%1',HALV_viewdistance_values select 0];
+	_ctrl ctrlSetText str(HALV_viewdistance_values select 0);
 	_ctrl = _display displayCtrl 6670;
 	_ctrl sliderSetRange [199,HALV_viewdistance_values select 0];
 	_ctrl sliderSetSpeed [1,3];
 	_ctrl sliderSetPosition (HALV_viewdistance_values select 1);
 	_ctrl = _display displayCtrl 6671;
-	_ctrl ctrlSetText format['%1',HALV_viewdistance_values select 1];
+	_ctrl ctrlSetText str(HALV_viewdistance_values select 1);
 	_ctrl = _display displayCtrl 6672;
 	_ctrl sliderSetRange [199,HALV_viewdistance_values select 0];
 	_ctrl sliderSetSpeed [1,3];
 	_ctrl sliderSetPosition (HALV_viewdistance_values select 2);
 	_ctrl = _display displayCtrl 6673;
-	_ctrl ctrlSetText format['%1',HALV_viewdistance_values select 2];
+	_ctrl ctrlSetText str(HALV_viewdistance_values select 2);
 	_ctrl = _display displayCtrl 6674;
 	_ctrl sliderSetRange [-1,35];
 	_ctrl sliderSetSpeed [1, 1];
 	_ctrl sliderSetPosition (HALV_viewdistance_values select 3);
 	_ctrl = _display displayCtrl 6675;
-	_ctrl ctrlSetText format['%1',HALV_viewdistance_values select 3];
+	_ctrl ctrlSetText str(HALV_viewdistance_values select 3);
 ";
 
-HALV_slideviewdistances = {
+HALV_slideviewdistances = compileFinal "
 	disableSerialization;
 	_ctrl = _this select 0;
 	_val = _this select 1;
 	_msg = if(count _this > 2)then{_this select 2}else{true};
 	_val = round _val;
-//	if(_msg)then{systemChat str HALV_viewdistance_values;};
 	switch(str _ctrl)do{
-		case "Control #6668":{
+		case 'Control #6668':{
 			if(_val < 200)then{_val = -1;};
 			HALV_viewdistance_values set [0,round _val];
 			_txt = _val;
-			if(_val < 200)then{_txt = "Default";};
-			if(_msg)then{hintSilent format["ViewDistance: %1",_txt];};
+			if(_val < 200)then{_txt = 'Default';};
+			if(_msg)then{hintSilent format['ViewDistance: %1',_txt];};
 			_ctrl = findDisplay 6667 displayCtrl 6669;
-			_ctrl ctrlSetText format["%1",_txt];
+			_ctrl ctrlSetText format['%1',_txt];
 			_ctrl = findDisplay 6667 displayCtrl 6670;
 			if(_val < 200)then{_ctrl sliderSetPosition 0;};
 			_spos = sliderPosition _ctrl;
@@ -78,39 +78,39 @@ HALV_slideviewdistances = {
 			_ctrl sliderSetRange [199,_val];
 			if(_spos > _val)then{[_ctrl,_val,false]call HALV_slideviewdistances;};
 		};
-		case "Control #6670":{
+		case 'Control #6670':{
 			_txt = _val;
 			if(_val < 200)then{_val = -1;};
-			if(_val < 200)then{_txt = "Default";};
+			if(_val < 200)then{_txt = 'Default';};
 			HALV_viewdistance_values set [1,_val];
-			if(_msg)then{hintSilent format["ObjectViewDistance: %1",_txt];};
+			if(_msg)then{hintSilent format['ObjectViewDistance: %1',_txt];};
 			_ctrl = findDisplay 6667 displayCtrl 6671;
-			_ctrl ctrlSetText format["%1",_txt];
+			_ctrl ctrlSetText format['%1',_txt];
 			_ctrl = findDisplay 6667 displayCtrl 6672;
 			if(_val < 200)then{_ctrl sliderSetPosition 0;};
 			_spos = sliderPosition _ctrl;
 			_ctrl sliderSetRange [199,_val];
 			if(_spos > _val)then{[_ctrl,_val,false]call HALV_slideviewdistances;};
 		};
-		case "Control #6672":{
+		case 'Control #6672':{
 			_txt = _val;
 			if(_val < 200)then{_val = -1;};
-			if(_val < 200)then{_txt = "Default";};
+			if(_val < 200)then{_txt = 'Default';};
 			HALV_viewdistance_values set [2,_val];
-			if(_msg)then{hintSilent format["ObjectViewDistance (shadow): %1",_txt];};
+			if(_msg)then{hintSilent format['ObjectViewDistance (shadow): %1',_txt];};
 			_ctrl = findDisplay 6667 displayCtrl 6673;
-			_ctrl ctrlSetText format["%1",_txt];
+			_ctrl ctrlSetText format['%1',_txt];
 		};
-		case "Control #6674":{
+		case 'Control #6674':{
 			if(_val < 0)then{_val = -1;};
 			HALV_viewdistance_values set [3,_val];
-			if(_val < 0)then{_val = "Default";};
-			hintSilent format["Terrain Grid: %1",_val];
+			if(_val < 0)then{_val = 'Default';};
+			hintSilent format['Terrain Grid: %1',_val];
 			_ctrl = findDisplay 6667 displayCtrl 6675;
-			_ctrl ctrlSetText format["%1",_val];
+			_ctrl ctrlSetText format['%1',_val];
 		};
 	};
-};
+";
 
 HALV_setviewdistances = {
 	setViewDistance (HALV_viewdistance_values select 0);
@@ -127,7 +127,15 @@ HALV_setviewdistances = {
 		(HALV_viewdistance_values select 2),
 		(HALV_viewdistance_values select 3)
 	];
-	profileNamespace setVariable ["Halv_viewdistance",HALV_viewdistance_values];
+	if(_this)then{
+		profileNamespace setVariable ["Halv_viewdistance",HALV_viewdistance_values];
+	};
 	hint _txt;
 	systemChat str _txt;
+};
+
+_preset = profileNamespace getVariable ["Halv_viewdistance",[]];
+if !(_preset isEqualTo [])then{
+	HALV_viewdistance_values = _preset;
+//	false call HALV_setviewdistances;
 };
